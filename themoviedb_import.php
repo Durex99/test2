@@ -12,30 +12,37 @@ function themoviedb_import_menu() {
 
 // Display the import page
 function themoviedb_import_page() {
-    // Check user capabilities
     if ( ! current_user_can( 'manage_options' ) ) {
         return;
     }
-
-<h1>The Movie DB Import</h1>
-<form method="post">
-    <label for="movies">Select the movies and TV shows to import:</label>
-    <br>
-    <?php
-    // Get the list of movies and TV shows
-    $response = wp_remote_get( $api_endpoint . 'popular?api_key=' . $api_key );
-    $data = json_decode( wp_remote_retrieve_body( $response ), true );
     ?>
-    <ul>
-        <?php foreach ( $data['results'] as $movie ) : ?>
-            <li>
-                <input type="checkbox" name="movies[]" value="<?php echo $movie['id']; ?>">
-                <?php echo $movie['title']; ?>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-    <input type="submit" name="submit" value="Import">
-</form>
+    <h1>The Movie DB Import</h1>
+    <form method="post">
+        <label for="movies">Select the movies and TV shows to import:</label>
+        <br>
+        <?php
+        // Get the list of movies and TV shows
+        $response = wp_remote_get( $api_endpoint . 'popular?api_key=' . $api_key );
+        $data = json_decode( wp_remote_retrieve_body( $response ), true );
+        ?>
+        <ul>
+            <?php foreach ( $data['results'] as $movie ) : ?>
+                <li>
+                    <input type="checkbox" name="movies[]" value="<?php echo $movie['id']; ?>">
+                    <?php echo $movie['title']; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+        <input type="submit" name="submit" value="Import">
+    </form>
+    <?php
+}
+add_action( 'admin_menu', 'themoviedb_import_menu' );
+function themoviedb_import_menu() {
+    add_options_page( 'The Movie DB Import', 'The Movie DB Import', 'manage_options', 'themoviedb-import', 'themoviedb_import_page' );
+}
+?>
+                                              
 
 
     // Check if the form has been submitted
