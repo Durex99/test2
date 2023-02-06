@@ -1,0 +1,490 @@
+
+API
+Panel
+Moje ligi
+Dokumentacja
+Nieudane żądania
+Uwierzytelnianie
+Kraje
+Kraj według identyfikatora
+ligi
+Liga według id
+pory roku
+Sezon według identyfikatora
+Gradacja
+Scena według identyfikatora
+Drużyny sportowe
+Zespół według id
+Statusy SportMatch
+mecze
+SportMatch przez Id
+Gracze
+Gracz według identyfikatora
+Klasyfikacja ligowa
+Najlepsi strzelcy
+Bukmacherzy
+Bukmacher według id
+Rynki
+Rynek według identyfikatora
+Szanse
+Miejsca
+Miejsce przez Id
+Sędziowie
+Sędzia przez Id
+Rundy
+Zaokrąglij według identyfikatora
+USTAWIENIA
+Ustawienia profilu
+Ustawienia bezpieczeństwa
+DANE DO FAKTURY
+Subskrypcja
+Metoda płatności
+Faktury
+Dokumentacja
+Koszty żądań i nieudane żądania
+Każde żądanie przesłane do naszego API jest liczone jako 1 żądanie do Twojego dziennego limitu. Opłata zostanie naliczona tylko za udane wyszukiwania. Jednak puste wyniki są również liczone jako pomyślne żądanie.
+
+Uwierzytelnianie i pozostawione żądania
+SportdataAPI używa kluczy API, aby umożliwić dostęp do API. Możesz zarejestrować nowy klucz API w naszym portalu dla programistów. Możesz zarejestrować nowy klucz API w naszym portalu dla programistów . Trasa /statuszwraca liczbę pozostawionych żądań.
+
+Aby autoryzować, możesz użyć następujących sposobów:
+
+DOSTAWAĆ /status
+SportdataAPI szuka klucza API w nagłówku, który wygląda jak poniżej (zalecane, działa ze wszystkimi żądaniami):
+
+curl "https://app.sportdataapi.com/api/v1/status" \
+        -H "apikey: 860fdf70-a5bf-11ed-8b25-97ba4c6232a9" 
+Lub
+
+curl "https://app.sportdataapi.com/api/v1/status?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9"
+Kraje
+Ten punkt końcowy zwraca listę krajów powiązanych z ligami i meczami.
+
+DOSTAWAĆ /soccer/countries
+Ten punkt końcowy akceptuje następujące parametry:
+
+Parametr	Typ	Opis
+continent	opcjonalny	string, możliwe wartości: Afryka, Azja, Europa, Oceania, Ameryka Północna, Ameryka Południowa
+Parametr Continental ogranicza wyszukiwanie do określonego kontynentu. Domyślnie uwzględniane są wszystkie kontynenty.
+
+SportdataAPI jest REST-API i akceptuje żądania HTTP za pośrednictwem dowolnego języka programowania. Poniższy przykład zwróci wszystkie kraje w Europie, które są objęte interfejsem API.
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/countries?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9&continent=Europe
+Kraj według identyfikatora
+Ten punkt końcowy zwraca informacje dla jednego kraju.
+
+DOSTAWAĆ /soccer/countries/:id
+Jeśli nie można znaleźć identyfikatora, zostanie zwrócony błąd 404.
+
+Poniższy przykład zwróci informacje o Niemczech.
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/countries/48?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9
+ligi
+Ten punkt końcowy zwraca listę wszystkich lig dostępnych za pośrednictwem interfejsu API.
+
+DOSTAWAĆ /soccer/leagues
+Ten punkt końcowy akceptuje następujące parametry:
+
+Parametr	Typ	Opis
+country_id	opcjonalnie , liczba całkowita	id kraju (kraje można pobrać przez /soccer/countries punkt końcowy)
+subscribed	opcjonalnie , wartość logiczna	filtruje wyniki według lig, które subskrybujesz. Tutaj możesz subskrybować ligi .
+SportdataAPI jest REST-API i akceptuje żądania HTTP za pośrednictwem dowolnego języka programowania. Poniższy przykład zwróci wszystkie ligi w Niemczech ( country_id=48).
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/leagues?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9&country_id=48
+Liga według id
+Ten punkt końcowy zwraca informacje dla jednej ligi.
+
+DOSTAWAĆ /soccer/league/:id
+Jeśli nie można znaleźć identyfikatora, zostanie zwrócony błąd 404.
+
+Poniższy przykład zwróci szczegółowe informacje dotyczące Bundesligi ( id: 314).
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/leagues/314?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9
+pory roku
+Ten punkt końcowy zwraca listę sezonów dla określonej ligi.
+
+DOSTAWAĆ /soccer/seasons
+Ten punkt końcowy akceptuje następujące parametry:
+
+Parametr	Typ	Opis
+league_id	wymagane , liczba całkowita	id ligi (ligi można pobrać przez /soccer/leagues punkt końcowy)
+Poniższy przykład zwróci wszystkie sezony dostępne dla niemieckiej Bundesligi ( league_id: 314).
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/seasons?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9&league_id=314
+Sezon według identyfikatora
+Ten punkt końcowy zwraca informacje dotyczące jednego sezonu.
+
+DOSTAWAĆ /soccer/seasons/:id
+Jeśli nie można znaleźć identyfikatora, zostanie zwrócony błąd 404.
+
+Poniższy przykład zwróci informacje o sezonie 2020/2021 niemieckiej Bundesligi.
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/seasons/496?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9
+Gradacja
+Ten punkt końcowy zwraca listę etapów dla określonego sezonu.
+
+DOSTAWAĆ /soccer/stages
+Ten punkt końcowy akceptuje następujące parametry:
+
+Parametr	Typ	Opis
+season_id	wymagane , liczba całkowita	id sezonu (sezony można pobrać przez /soccer/seasons punkt końcowy)
+Poniższy przykład zwróci wszystkie sezony, które są dostępne dla sezonu o identyfikatorze 3 ( league_id: 9).
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/stages?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9&season_id=3
+Scena według identyfikatora
+Ten punkt końcowy zwraca informacje dotyczące pojedynczego etapu.
+
+DOSTAWAĆ /soccer/stages/:id
+Jeśli nie można znaleźć identyfikatora, zostanie zwrócony błąd 404.
+
+Poniższy przykład zwróci informacje o etapie z parametrem stage_id 1.
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/stages/1?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9
+Zespoły
+Ten punkt końcowy zwraca listę drużyn dla danego kraju.
+
+DOSTAWAĆ /soccer/teams
+Ten punkt końcowy akceptuje następujące parametry:
+
+Parametr	Typ	Opis
+country_id	wymagane , liczba całkowita	kraje można pobrać tutaj: /soccer/countries
+Poniższy przykład zwróci listę drużyn z Niemiec:
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/teams?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9&country_id=48
+Zespół według id
+Ten punkt końcowy zwraca informacje o zespole dla pojedynczego zespołu.
+
+DOSTAWAĆ /soccer/teams/:id
+Jeśli nie można znaleźć identyfikatora, zostanie zwrócony błąd 404.
+
+Poniższy przykład zwróci listę drużyn dla „Bayern München (id: 4066):
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/teams/4066?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9
+Statusy meczów
+Dopasowania mogą mieć kilka statusów, które są dostarczane wraz z kodem stanu.
+
+Status	Nazwa	Opis
+0	nie rozpoczął	Wydarzenie się nie rozpoczęło
+1	W grze	Wydarzenie jest rozgrywane
+11	Połowa czasu	Wydarzenie jest w połowie
+12	Dodatkowy czas	Wydarzenie jest w dogrywce
+13	Kary	Wydarzenie odbywa się w karach, ponieważ dogrywka nie wyłoniła zwycięzcy.
+14	Przerwa	Wydarzenie jest w przerwie w oczekiwaniu na dogrywkę lub rzuty karne.
+15	Nagradzanie	Przyznanie zwycięstwa zawodnikowi, ponieważ nie ma innych zawodników.
+2	Zaktualizuj później	Wydarzenie zostanie zaktualizowane później.
+3	Zakończone	Wydarzenie zakończyło się po 90 minutach.
+31	Po karnych	Wydarzenie zakończyło się po serii rzutów karnych.
+32	Po dogrywce	Wydarzenie zakończyło się po dogrywce.
+4	Odłożony	Wydarzenie zostało przełożone.
+5	Odwołany	Wydarzenie zostało odwołane.
+6	Opuszczony	Wydarzenie zostało przerwane i będzie kontynuowane w późniejszym czasie lub w późniejszym dniu.
+7	Przerwany	Wydarzenie zostało przerwane. Może to być spowodowane na przykład złą pogodą.
+8	Zawieszony	Wydarzenie zostało zawieszone.
+9	Wyróżniony	Zwycięzca jest wybierany na zewnątrz.
+10	Opóźniony	Wydarzenie jest opóźnione.
+17	Do ogłoszenia	Wydarzenie nie zostało jeszcze zweryfikowane.
+mecze
+Ten punkt końcowy zwraca listę meczów dla danego sezonu. Ten punkt końcowy zawiera tylko ogólne informacje o dopasowaniach. Jeśli szukasz bardziej szczegółowych informacji, skorzystaj z naszego punktu końcowego wyszukiwania pojedynczego dopasowania .
+
+DOSTAWAĆ /soccer/matches
+This endpoint accepts the following parameters:
+
+Parameter	Type	Description
+season_id	required, integer	(not required if live=true), id of season (seasons can be fetched via the /soccer/seasons endpoint)
+live	optional, boolean	shows all matches that are currently live, regardless from their season
+status_code	opcjonalnie , liczba całkowita	wszystkie dostępne identyfikatory statusu można zobaczyć tutaj
+date_from	opcjonalnie , ciąg	Pokazuje mecze, które zaczynają się później lub równo z określoną datą. Y-m-dformat.
+date_to	opcjonalnie , ciąg	Pokazuje mecze, które zaczynają się wcześniej lub równorzędnie z określoną datą. Y-m-dformat.
+Poniższy przykład zwróci wszystkie mecze Bundesligi ( season_id: 496), czyli sezonu 2020/2021 niemieckiej Bundesligi. Zastosowaliśmy date_fromfiltr, który pokazuje tylko mecze rozpoczynające się po 2020-09-19.
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/matches?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9&season_id=496&date_from=2020-09-19
+Dopasuj według identyfikatora
+Ten punkt końcowy zwraca szczegółowe informacje o pojedynczym dopasowaniu.
+
+DOSTAWAĆ /soccer/matches/:id
+Jeśli nie można znaleźć identyfikatora, zostanie zwrócony błąd 404.
+
+Poniższy przykład pokazuje szczegółowe informacje (w tym statystyki i wydarzenia meczowe) dotyczące meczu „Bayern München vs. FC Schalke 04” (id: 139383):
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/matches/139383?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9
+Gracze
+Ten punkt końcowy zwraca listę graczy dla danego kraju.
+
+DOSTAWAĆ /soccer/players
+Ten punkt końcowy akceptuje następujące parametry:
+
+Parametr	Typ	Opis
+country_id	wymagane , liczba całkowita	kraje można pobrać tutaj: /soccer/countries
+max_age	opcjonalnie , liczba całkowita	pokazuje graczy młodszych lub równych określonemu wiekowi
+min_age	opcjonalnie , liczba całkowita	pokazuje graczy starszych lub równych określonemu wiekowi
+Poniższy przykład zwróci listę graczy z Niemiec (country_id=48), którzy mają 19 lat lub mniej:
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/players?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9&country_id=48&max_age=19
+Gracz według identyfikatora
+Ten punkt końcowy zwraca szczegółowe informacje o pojedynczym graczu.
+
+DOSTAWAĆ /soccer/players/:id
+Jeśli nie można znaleźć identyfikatora, zostanie zwrócony błąd 404.
+
+Poniższy przykład pokaże szczegółowe informacje o graczu (id: 580):
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/players/580?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9
+Klasyfikacja ligowa
+Ten punkt końcowy zwraca klasyfikację ligową dla danego sezonu.
+
+DOSTAWAĆ /soccer/standings
+Ten punkt końcowy akceptuje następujące parametry:
+
+Parametr	Typ	Opis
+season_id	wymagane , liczba całkowita	kraje można pobrać tutaj: /soccer/seasons
+Poniższy przykład zwróci wszystkie tabele ligowe dla niemieckiej Bundesligi ( season_id: 496, sezon 2020/2021).
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/standings?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9&season_id=496
+Najlepsi strzelcy
+Ten punkt końcowy zwraca listę najlepszych strzelców według identyfikatora sezonu.
+
+DOSTAWAĆ /soccer/topscorers
+Ten punkt końcowy akceptuje następujące parametry:
+
+Parametr	Typ	Opis
+season_id	wymagane , liczba całkowita	kraje można pobrać tutaj: /soccer/seasons
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/topscorers?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9&season_id=4
+Bukmacherzy
+Ten punkt końcowy zwraca listę boomakers, które są objęte interfejsem API.
+
+DOSTAWAĆ /soccer/bookmakers
+Poniższy przykład zwróci listę wszystkich objętych bukmacherów.
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/bookmakers?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9
+Bukmacher według id
+Ten punkt końcowy zwraca szczegółowe informacje o jednym bukmacherze.
+
+DOSTAWAĆ /soccer/bookmakers/:id
+Jeśli nie można znaleźć identyfikatora, zostanie zwrócony błąd 404.
+
+Poniższy przykład pokaże szczegółowe informacje o bukmacherze (id: 1):
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/bookmakers/1?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9
+Rynki
+Ten punkt końcowy zwraca listę rynków kursów, które są objęte interfejsem API.
+
+DOSTAWAĆ /soccer/markets
+Poniższy przykład zwróci listę wszystkich objętych bukmacherów.
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/markets?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9
+Rynek według identyfikatora
+Ten punkt końcowy zwraca szczegółowe informacje o jednym bukmacherze.
+
+DOSTAWAĆ /soccer/markets/:id
+Jeśli nie można znaleźć identyfikatora, zostanie zwrócony błąd 404.
+
+Poniższy przykład pokaże szczegółowe informacje o rynku (id: 1):
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/markets/1?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9
+Szanse
+Ten punkt końcowy zwraca dane dotyczące kursów przedmeczowych i przedmeczowych dla określonego meczu.
+
+DOSTAWAĆ /soccer/odds/:match_id
+Ten punkt końcowy akceptuje następujące parametry:
+
+Parametr	Typ	Opis
+type	wymagane , ciąg	typ kursu, wartości mogą być „przed meczem” lub „na żywo”
+Poniższy przykład zwróci wszystkie kursy przedmeczowe dla losowo wybranego meczu ( match_id: 120423).
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/odds/120423?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9&type=prematch
+Miejsca
+Ten punkt końcowy zwraca listę miejsc z informacjami ogólnymi dla danego kraju.
+
+DOSTAWAĆ /soccer/venues
+Ten punkt końcowy akceptuje następujące parametry:
+
+Parametr	Typ	Opis
+country_id	required, integer	countries can be fetched here: /soccer/countries
+The following example will return a list of venues from Germany (country_id=48):
+
+Browser
+CURL
+Python
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/venues?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9&country_id=48
+Venue by Id
+This endpoint returns detailed information about a single venue.
+
+GET /soccer/venues/:id
+If the Id can not be found, a 404 error will be returned.
+
+The following example will show detailed information about the Allianz Arena in Germany (id: 1927):
+
+Browser
+CURL
+Python
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/venues/1927?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9
+Referees
+This endpoint returns a list of referees with overview information, for a given country.
+
+GET /soccer/referees
+This endpoint accepts the following parameters:
+
+Parameter	Type	Description
+country_id	required, integer	countries can be fetched here: /soccer/countries
+The following example will return a list of referees from Peru (country_id=81):
+
+Browser
+CURL
+Python
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/referees?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9&country_id=81
+Referee by Id
+This endpoint returns detailed information about a single referee.
+
+GET /soccer/referees/:id
+If the Id can not be found, a 404 error will be returned.
+
+The following example will show detailed information about a referee (id: 5):
+
+Browser
+CURL
+Python
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/referees/5?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9
+Rounds
+This endpoint returns a list of rounds with overview information, for a given season.
+
+GET /soccer/rounds
+This endpoint accepts the following parameters:
+
+Parameter	Type	Description
+season_id	required, integer	countries can be fetched here: /soccer/seasons
+The following example will return a list of rounds for the German Bundesliga season 2019/2020 (season_id: 503):
+
+Browser
+CURL
+Python
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/rounds?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9&season_id=503
+Round by Id
+Ten punkt końcowy zwraca szczegółowe informacje o pojedynczej rundzie.
+
+DOSTAWAĆ /soccer/rounds/:id
+Jeśli nie można znaleźć identyfikatora, zostanie zwrócony błąd 404.
+
+Poniższy przykład pokaże szczegółowe informacje o konkretnej rundzie sezonu niemieckiej Bundesligi 2019/2020 (id: 6965):
+
+Przeglądarka
+KĘDZIOR
+Pyton
+Node.js
+PHP
+https://app.sportdataapi.com/api/v1/soccer/rounds/6965?apikey=860fdf70-a5bf-11ed-8b25-97ba4c6232a9
+S
